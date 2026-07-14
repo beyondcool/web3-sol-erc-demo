@@ -169,6 +169,8 @@ contract MyERC1155Demo is ERC1155, Ownable {
      *
      *   格式惯例：{baseURI}{id}.json
      *   其中 {id} 是十六进制编码（不带 0x 前缀，小写）
+     *    
+     *   Openzeppelin 的 ERC1155 实现中，uri(uint256) 统一返回模板字符串，需自行替换 {id}。
      *
      *   例如：https://game.example.com/api/item/{id}.json
      *        → https://game.example.com/api/item/1.json（金币元数据）
@@ -204,7 +206,7 @@ contract MyERC1155Demo is ERC1155, Ownable {
      * @param to     接收代币的地址
      * @param id     代币类型 ID
      * @param amount 铸造数量
-     * @param data   附加数据（传给回调函数）
+     * @param data   附加数据（传给回调函数），这是onERC1155Received回调方法的最后一个参数
      */
     function mint(address to, uint256 id, uint256 amount, bytes memory data)
         public onlyOwner
