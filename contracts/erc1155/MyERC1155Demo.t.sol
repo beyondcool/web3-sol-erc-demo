@@ -71,7 +71,7 @@ contract MyERC1155DemoTest is Test {
     address operator;
     MockGameVault vault;
 
-    string constant BASE_URI = "https://game.example.com/api/item/";
+    string constant BASE_URI = "https://game.example.com/api/item/{id}.json";
 
     // 缓存代币 ID 常量
     uint256 GOLD;
