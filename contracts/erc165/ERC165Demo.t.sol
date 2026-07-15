@@ -18,6 +18,7 @@ contract ERC165Test is Test {
         assertTrue(supportsIERC165, "MyCustomImplContract should support IERC165");
 
         // 是否支持：ICustomInterface 接口
+        // 实际开发：直接调用，不需要先判断是否实现了ERC-165协议接口。
         bytes4 customInterfaceId = type(ICustomInterface).interfaceId;
         // 算法逻辑：内部所有方法签名的 selector 进行 XOR 运算
         // bytes4 customInterfaceId = 
