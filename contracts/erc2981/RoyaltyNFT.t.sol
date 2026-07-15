@@ -36,7 +36,7 @@ contract RoyaltyNFTTest is Test {
     }
 
     /// @notice 设置独立版税：setTokenRoyalty(tokenId, receiver, feeNumerator)
-    ///         改后 royaltyInfo 返回新值，不再使用默认版税
+    ///         改后 royaltyInfo 返回新值，不再使用默认版税。
     function test_SetTokenRoyalty() public {
         vm.prank(admin);
         uint256 tokenId = nft.mint(user1);
