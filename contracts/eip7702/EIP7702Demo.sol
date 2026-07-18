@@ -54,7 +54,19 @@ import {EIP7702Utils} from "@openzeppelin/contracts/account/utils/EIP7702Utils.s
  *         msg.sender    = 原始调用者
  *         存储          = EOA 的状态存储
  *
- *  ④ 交易结束后，EOA 的 code 恢复为空
+ *  ⚠️ 持久化说明（EIP-7702 版本演进）
+ *
+ *  早期草稿版本 → 交易结束后 code 恢复为空（"临时委托"）
+ *  最终纳入 Pectra 升级的版本 → code **持久保留**
+ *
+ *    交易结束后 code 不清空，永久留在 EOA 的账户状态中。
+ *    直到下一次 EIP-7702 交易覆盖委托地址，或主动清除委托。
+ *
+ *  这意味着 EIP-7702 的委托是跨交易有效的：
+ *    - 交易 A：Alice 委托给 demo → code 写入 0xef0100 + demo
+ *    - 交易 B：CALL Alice → 仍然能触发 DELEGATECALL（不需要重新签名）
+ *    - 交易 C：Alice 重新签名授权 → 覆盖为新的委托地址
+ *    - 交易 D：Alice 签名授权 address(0) → 清除委托（恢复为普通 EOA）
  *
  * ═══════════════════════════════════════════════════════════════
  *  本合约演示的能力
