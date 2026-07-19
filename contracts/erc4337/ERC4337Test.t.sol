@@ -114,7 +114,7 @@ contract ERC4337Test is Test {
     function test_BasicUserOpTransfer() public {
         // ── 记录初始余额 ──
         uint256 balanceBefore = address(wallet).balance;
-        uint256 recipientBefore = recipient.balance;
+        // uint256 recipientBefore = recipient.balance;
         uint256 bobBefore = bob.balance;
 
         // ── 步骤 ①：Alice 构造 UserOp ──
