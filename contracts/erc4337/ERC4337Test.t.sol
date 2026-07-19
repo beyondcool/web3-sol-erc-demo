@@ -115,6 +115,7 @@ contract ERC4337Test is Test {
         // ── 记录初始余额 ──
         uint256 balanceBefore = address(wallet).balance;
         uint256 recipientBefore = recipient.balance;
+        uint256 bobBefore = bob.balance;
 
         // ── 步骤 ①：Alice 构造 UserOp ──
         UserOperation memory op;
@@ -143,7 +144,7 @@ contract ERC4337Test is Test {
         // ── 步骤 ④：验证结果 ──
         // ✅ Bob 收到了 0.5 ETH
         assertEq(
-            bob.balance - recipientBefore,
+            bob.balance - bobBefore,
             TRANSFER_AMOUNT,
             "Bob should receive 0.5 ETH"
         );
