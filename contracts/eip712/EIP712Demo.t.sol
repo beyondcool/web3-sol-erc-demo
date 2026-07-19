@@ -62,7 +62,7 @@ contract EIP712DemoTest is Test {
     // ═══════════════════════════════════════════════════════════════════
     //  教学点：hashStruct = keccak256(typeHash || encodeData)
 
-    function test_HashNote_ReturnsCorrectHash() public {
+    function test_HashNote_ReturnsCorrectHash() public view {
         EIP712Demo.Note memory note = EIP712Demo.Note("Hello, EIP-712!", 1);
 
         bytes32 expectedHash = keccak256(abi.encode(
@@ -160,7 +160,7 @@ contract EIP712DemoTest is Test {
     // ═══════════════════════════════════════════════════════════════════
     //  教学点：中继器可以先 verify 再提交，避免浪费 gas
 
-    function test_Verify_ReturnsTrueForValidSignature() public {
+    function test_Verify_ReturnsTrueForValidSignature() public view {
         EIP712Demo.Note memory note = EIP712Demo.Note("Verify me", 42);
 
         bytes32 digest = keccak256(abi.encodePacked(
@@ -197,7 +197,7 @@ contract EIP712DemoTest is Test {
         assertFalse(demo.verify(note, bob, v, r, s), "Should be false for wrong signer");
     }
 
-    function test_Verify_ReturnsFalseForModifiedContent() public {
+    function test_Verify_ReturnsFalseForModifiedContent() public view {
         EIP712Demo.Note memory original = EIP712Demo.Note("Original", 1);
         EIP712Demo.Note memory tampered = EIP712Demo.Note("Tampered", 1);
 
