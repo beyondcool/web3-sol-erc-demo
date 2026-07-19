@@ -18,11 +18,11 @@ import "@openzeppelin/contracts/utils/cryptography/EIP712.sol";
  * ║                                                                      ║
  * ║   🤔 什么是 EIP-712？                                                ║
  * ║   ═══════════════════                                              ║
- * ║                                                                    ║
- * ║   让用户签署「结构化的、人类可读的数据」，而不是黑箱式的哈希。               ║
+ * ║                                                                      ║
+ * ║   让用户签署「结构化的、人类可读的数据」，而不是黑箱式的哈希。            ║
  * ║   钱包可以展示签名内容给用户确认。                                      ║
- * ║                                                                     ║
- * ║   签的不是这个:                     而是签这个（钱包会展示）:              ║
+ * ║                                                                      ║
+ * ║   签的不是这个:                     而是签这个（钱包会展示）:            ║
  * ║     0x1902839184...                  ┌────────────────────────────┐  ║
  * ║                                      │ Domain: EIP712Demo        │  ║
  * ║                                      │ Chain: Ethereum Mainnet   │  ║
@@ -174,6 +174,10 @@ contract EIP712Demo is EIP712("EIP712Demo", "1") {
         notes.push(note);
         noteSigners[notes.length - 1] = msg.sender;
 
+        // 验证签名后，此处可以编写业务逻辑
+        // 发送代币、铸造 NFT、执行交易等
+
+        // 此代理实例仅存储笔记并发事件：
         emit NoteSigned(msg.sender, notes.length - 1, note.content, note.nonce);
     }
 
