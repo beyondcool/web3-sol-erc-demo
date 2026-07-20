@@ -86,6 +86,9 @@ import {EIP7702Utils} from "@openzeppelin/contracts/account/utils/EIP7702Utils.s
  */
 contract EIP7702Demo {
 
+    address public owner;
+
+
     /* ─────────────── Events ─────────────── */
 
     /// @notice 通用日志事件
@@ -114,7 +117,24 @@ contract EIP7702Demo {
      * ────────────────────────────────────────────────────────── */
 
     /**
-     * @notice 查询当前执行上下文
+     * 只有合约部署者（owner）才能调用EOA code指向的合约（当前合约）中的函数。
+     * 这是为了防止其他人滥用 EIP-7702 委托功能，确保只有授权的 EOA 可以执行批量操作和其他敏感操作。
+     */
+    modifier onlyOwner() {
+        require(msg.sender == owner, "EIP7702Demo: not owner");
+        _;
+    }
+
+    constructor() {
+        owner = msg.sender;  // 部署者初始为 owner
+    }
+
+    function transferOwnership(address newOwner) external onlyOwner {
+        owner = newOwner;
+    }
+
+    /**
+     * @notice 【测试用的】查询当前执行上下文
      * @return self   当前执行上下文地址
      *         直接调用 → 本合约地址
      *         EIP-7702 → 委托了的 EOA 地址
@@ -154,7 +174,7 @@ contract EIP7702Demo {
         address[] calldata targets,
         uint256[] calldata values,
         bytes[] calldata calldatas
-    ) external payable returns (bytes[] memory results) {
+    ) external payable onlyOwner returns (bytes[] memory results) {
         uint256 len = targets.length;
         require(len == values.length && len == calldatas.length, "EIP7702Demo: length mismatch");
 
