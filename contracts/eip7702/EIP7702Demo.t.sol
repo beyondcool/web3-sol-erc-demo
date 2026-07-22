@@ -76,6 +76,7 @@ contract EIP7702DemoTest is Test {
         bob = makeAddr("bob");
 
         // 部署实现合约
+        vm.prank(alice);// alice部署,后面有alice的转账操作
         demo = new EIP7702Demo();
 
         // 给 Alice 一些 ETH（用于批量转账测试）

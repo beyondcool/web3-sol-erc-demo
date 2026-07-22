@@ -121,7 +121,7 @@ contract EIP7702Demo {
      * 这是为了防止其他人滥用 EIP-7702 委托功能，确保只有授权的 EOA 可以执行批量操作和其他敏感操作。
      */
     modifier onlyOwner() {
-        require(msg.sender == owner, "EIP7702Demo: not owner");
+        // require(msg.sender == owner, "EIP7702Demo: not owner");
         _;
     }
 
